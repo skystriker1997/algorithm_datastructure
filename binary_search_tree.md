@@ -82,7 +82,7 @@ public:
 
    														
 
-How to build up a height-balanced binary search tree, based on a sorted array?
+How to build up a height-balanced binary search tree based on a sorted array?
 
 The essential function of the binary search tree is to divide a group of numbers into two parts, where the least one of right part should be greater than the largest one of the left part. In order to make the tree be balanced, I always evenly divide the given group. For example, if I want to add left and right child nodes for root, with left border(l), right border(r) and current index(c), the left child node should be the middle(l, c-1), and the right child node should be middle(c+1, r)
 
@@ -148,59 +148,51 @@ public:
 };
 ```
 
-When it comes to deleting a node from the binary search tree, the most complicated case happens when the node has both right node and left node. I use the least one of right subtree or the largest one of left subtree, to take the place of the deleted node. 
+When it comes to deleting a node from the binary search tree, the most complicated case happens when the target node has both right node and left node. I use the least one of right subtree or the largest one of left subtree to take the place of the deleted node. 
 
-[LeetCode 450 Delete Node in a BST](https://leetcode.com/problems/insert-into-a-binary-search-tree/) 
+[LeetCode 450 Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/) 
 
 ```cpp
 class Solution {
 public:
     TreeNode* deleteNode(TreeNode* root, int key) {
-        TreeNode* dummy = new TreeNode(); 
+        TreeNode* dummy = new TreeNode(); // make a dummy parent node for the root to facilitate processing
         dummy->right = root;
         gothrough(root, key, dummy, true);
-        return dummy->right;
+        TreeNode* res = dummy->right?dummy->right:nullptr;  // if the original root has been deleted, just return nullptr
+        delete dummy;   // release dummy before exiting
+        return res;
     }
 
     void replace(TreeNode* root, TreeNode* p, bool right) {
+      	TreeNode* replacement = nullptr;
         if (root->right && root->left) {
-          // find out what's the largest node of the left subtree
-            if (!root->left->right) {   // in this case, root->left
-                root->val = root->left->val;
-                root->left = root->left->left?root->left->left:nullptr;
+            if (!root->left->right) {   // in this case, root->left is the largest one among left subtree
+              	replacement = root->left;
+              	root->left->right = root->right;
             } else {
                 TreeNode* front = root->left->right;
-                TreeNode* p = root->left;
-                while (front->right) {
-                    p = front;
+                TreeNode* parent = root->left;
+                while (front->right) {  // iterate to find the largest one of left subtree by going right
+                    parent = front;
                     front = front->right;
                 }
-                root->val = front->val;
-                if (front->left) {
-                    p->right = front->left;
-                } else {
-                    p->right = nullptr;
-                }
+              	replacement = front;
+                parent->right = front->left;   // alter linkings
+              	front->left = root->left;   
+              	front->right = root->right;
             }
-        } else if(root->left) {
-            if (right) {
-                p->right = root->left;
-            } else {
-                p->left = root->left;
-            }
-        } else if(root->right) {
-            if (right) {
-                p->right = root->right;
-            } else {
-                p->left = root->right;
-            }
-        } else {
-            if (right) {
-                p->right = nullptr;
-            } else {
-                p->left = nullptr;
-            }
-        }
+       } else if (root->left) {
+            replacement = root->left;
+       } else if (root->right) {
+            replacement = root->right;
+       }
+       if (right) {
+       			p->right = replacement;
+       } else {
+         		p->left = replacement;
+       }
+       delete root;  
     }
 
     void gothrough(TreeNode* root, const int& key, TreeNode* p, bool right) {
@@ -210,7 +202,7 @@ public:
         if (root->val == key) {
             replace(root, p, right);
         } else {
-            gothrough(root->right, key, root, true);
+            gothrough(root->right, key, root, true);  // use right to record the relative direction
             gothrough(root->left, key, root, false);
         }
     }
