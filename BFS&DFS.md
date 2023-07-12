@@ -9,7 +9,8 @@ Queue, working by first-in-first-out, fits into the trait of BFS.
 std::queue<Node*> myqueue;
 if(root != nullptr) myqueue.push(root);
 while (!myqueue.empty()) {
-  Node* node = myqueue.pop();
+  Node* node = myqueue.front();
+  myqueue.pop();
   // TODO
   if(node->right != nullptr) myqueue.push(node->right);
   if(node->left != nullptr) myqueue.push(node->left);
@@ -24,7 +25,8 @@ Stack, working by last-in-first-out, fits into the trait of DFS.
 std::stack<Node*> mystack;
 if(root != nullptr) mystack.push(root);
 while (!mystack.empty()) {
-  Node* node = mystack.pop();
+  Node* node = mystack.top();
+  mystack.pop();
   // TODO
   if(node->right != nullptr) mystack.push(node->right);
   if(node->left != nullptr) mystack.push(node->left);
