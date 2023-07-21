@@ -1,4 +1,0 @@
-/Users/stardusthum/algorithm_datastructure/skip_list/cmake-build-debug/CMakeFiles/SkipList.dir
-/Users/stardusthum/algorithm_datastructure/skip_list/cmake-build-debug/CMakeFiles/Test1.dir
-/Users/stardusthum/algorithm_datastructure/skip_list/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/stardusthum/algorithm_datastructure/skip_list/cmake-build-debug/CMakeFiles/rebuild_cache.dir
