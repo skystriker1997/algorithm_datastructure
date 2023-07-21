@@ -15,7 +15,7 @@ public:
     ~Node() = default;
     int val_;
     std::vector<Node*> next_nodes_{LV_LIMIT+1, nullptr};
-    // the index of vector represents the level; the element represents the next node of this node at the level denoted by the index
+    // the index of vector represents the level; the element is the next node of this node at the level denoted by the index
 };
 
 
