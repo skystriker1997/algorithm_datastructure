@@ -29,7 +29,7 @@ SkipList::~SkipList() {
 
 Node* SkipList::Find(int val) {
     Node* curr_node = dummy_head_;
-    for(int i=max_level_; i>=0; i--) {
+    for(int i=max_level_; i>=0; i--) {    // decrease the level by 1 for each iteration
         while(curr_node->next_nodes_[i]!=nullptr && curr_node->next_nodes_[i]->val_<val)
             curr_node = curr_node->next_nodes_[i];
         if(curr_node->next_nodes_[i]!=nullptr && curr_node->next_nodes_[i]->val_==val)
