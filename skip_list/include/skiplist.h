@@ -3,12 +3,12 @@
 #include <iostream>
 
 
-#define LV_LIMIT 15
+#define LV_LIMIT 15    // the upper limit of level
 
 class Node {    // one node can appear in multiple levels;
-               // if node A appears in level N, then it must appear also in level N-1;
-               // its val is supposed to be unique;
-               // nodes are supposed to be sorted in ascending order in each level
+                // if node A appears in level N, then it must appear also in level N-1;
+                // its val is supposed to be unique;
+                // nodes are supposed to be sorted in ascending order in each level
 public:
     Node();
     explicit Node(int val);
@@ -31,6 +31,6 @@ public:
     void PrintAll() const;
     void DeleteAll();
     Node* dummy_head_;
-    unsigned int max_level_;
+    unsigned int max_level_;    // the highest level that current nodes reach
 };
 

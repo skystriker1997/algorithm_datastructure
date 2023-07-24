@@ -29,8 +29,7 @@ SkipList::~SkipList() {
 
 Node* SkipList::Find(int val) const {
     Node* curr_node = dummy_head_;
-    for(int i=max_level_; i>=0; i--) {    // decrease the level by 1 for each iteration
-        // at each level, the while loop is used to locate the node to adjust accordingly
+    for(int i=max_level_; i>=0; i--) {
         while(curr_node->next_nodes_[i]!=nullptr && curr_node->next_nodes_[i]->val_<val)
             curr_node = curr_node->next_nodes_[i];
         if(curr_node->next_nodes_[i]!=nullptr && curr_node->next_nodes_[i]->val_==val)
@@ -44,7 +43,7 @@ Node* SkipList::Find(int val) const {
 void SkipList::Insert(int val) {
     if(Find(val)!= nullptr)
         return;
-    unsigned int level = LevelGenerator();     // it's the top level this node reaches
+    unsigned int level = LevelGenerator();     // level represents the top level this node reaches
     Node* node = new Node{val};
     if(max_level_<level)
         max_level_ = level;
@@ -106,7 +105,6 @@ unsigned int SkipList::LevelGenerator() {
     static std::uniform_real_distribution<double> distribution(-1.0, 1.0);
     unsigned int level = 0;
     while (distribution(generator) < 0 && level<=LV_LIMIT)
-        // 50% -- 25% -- 12.5% --..., this is to force the number of nodes at level N to be approximately half of that of level N-1
         level += 1;
     return level;
 }
