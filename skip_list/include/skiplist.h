@@ -5,10 +5,7 @@
 
 #define LV_LIMIT 15    // the upper limit of level
 
-class Node {    // one node can appear in multiple levels;
-                // if node A appears in level N, then it must appear also in level N-1;
-                // its val is supposed to be unique;
-                // nodes are supposed to be sorted in ascending order in each level
+class Node {
 public:
     Node();
     explicit Node(int val);

@@ -1,18 +1,12 @@
-Requirements of a binary search tree are as below: 
+A binary search tree is a specialised binary tree added restrictions as below: 
 
-The left subtree of a node contains only nodes with keys less than the node's key.
+1. The key of root is greater than that of any nodes from the left subtree.
 
-The right subtree of a node contains only nodes with keys greater than the node's key.
+2. The key of root is less than that of any nodes from the right subtree.
 
-Given these, how to validate a binary search tree. 
+Given these, how can we validate a binary tree being a binary search tree?
 
-From the angle of any indiviual node in the binary tree, the key of the right node and left node of current node should comply constraints, which are determined by the nearest forefather node located to the left of current node, the nearest forefather node located to the right of current node and the current node. 
-
-I use nearest_fn__right to represent the nearest forefather node located to the right of current node, nearest_fn_left to represent the nearest forefather node located to the left of current node, and root to represent the current node. 
-
-The key of  root's left child node should be less than that of root, but greater than that of nearest_fn_left, as both root and root->left are in the right subtrees of nearest_fn_left.
-
-The key of  root's right child node should be greater than that of root, but less than that of nearest_fn_right, because both root and root->right are in the left subtrees of nearest_fn_right.
+For a root, although its left node should not only be less than it, but also be greater than the nearest forefather node of it which regards it as a member of right subtree and is named nearest_fn_left by me. Similarly, its right node should not only be greater than it, but also be less than the nearest forefather node of it which regards it as a member of left subtree and is named nearest_fn__right by me. 
 
 [LeetCode 98 Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 
@@ -82,9 +76,11 @@ public:
 
    														
 
+We invent the binary search tree to facilitate search, but only a binary search tree whose every node has left subtree and right subtree with very close height significantly helps to maintain the time complexity at O(log<sub>2</sub>N).
+
 How to build up a height-balanced binary search tree based on a sorted array?
 
-The essential function of the binary search tree is to divide a group of numbers into two parts, where the least one of right part should be greater than the largest one of the left part. In order to make the tree be balanced, I always evenly divide the given group. For example, if I want to add left and right child nodes for root, with left border(l), right border(r) and current index(c), the left child node should be the middle(l, c-1), and the right child node should be middle(c+1, r)
+What should be done recursively is to select out the middle element of the sorted array to be the root, let the left part be the left subtree, let the right part be the right subtree. 
 
 [LeetCode 108 Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
 
@@ -118,7 +114,7 @@ public:
 };
 ```
 
- Since every node in a binary search tree works as a watershed, it's easy to insert an element into the tree. 
+ Since every node in a binary search tree plays a role as a watershed, it's easy to traverse until the leaf node and then insert the element. 
 
 [LeetCode 701 Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
 
@@ -148,7 +144,7 @@ public:
 };
 ```
 
-When it comes to deleting a node from the binary search tree, the most complicated case happens when the target node has both right node and left node. I use the least one of right subtree or the largest one of left subtree to take the place of the deleted node. 
+When it comes to deleting a node from the binary search tree, the most complicated case happens when the target node has both right node and left node. We can use the least element from the right subtree or the largest one from left subtree to take the place of the deleted node. 
 
 [LeetCode 450 Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/) 
 
@@ -209,3 +205,4 @@ public:
 };
 ```
 
+Note that heavily deleting or inserting elements upon a binary tree is likely to corrupt the balance of the tree. That's why red-black tree is invented. 
