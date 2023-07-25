@@ -205,4 +205,4 @@ public:
 };
 ```
 
-Note that heavily deleting or inserting elements upon a binary tree is likely to corrupt the balance of the tree. That's why red-black tree is invented. 
+Note that heavily deleting or inserting elements upon a balanced binary search tree is likely to corrupt its balance. That's why red-black tree is invented. 
