@@ -18,7 +18,7 @@ Let's analyze the time complexity of the skip list. Recall that we put every oth
 
 When it comes to inserting and deleting elements into the skip list, we should remember that one element in layer 0 may appear multiple times in above layers. So, when we delete something from the original linked list, also remove it from above layers. For insertion, we need to determine how many layers should be placed with the element. My solution is to use a random value generator, whose possibility of generating N is half of that of generating N-1, so that the number of elements in layer N is approximately half of that in layer N-1. Since each element in layer N-1 has 50% probability to appear also in layer N, the distance between two elements at layer N-1, which are adjacent at layer N, is very unlikely to be too large to maintain the efficiency of in-layer search, and then the time complexity at each layer is very likely to keep at O(1). In summary, this method balances the tradeoff between efficiency and the ideal structure of the whole skip list. Also note that the order of traversing layers when inserting or deleting elements is always from the top to bottom, to leverage the traits of the skip list.
 
-Compared with red-black trees, the skip list is easier to understand. Since the C++ STL does not provide it, I implemented it. Please refer to my implementation for more details.
+Compared with red-black trees, the skip list is easier to understand. Since there are no C++ STL containers underlying on skip list, I implemented a map-like container based on it in a way of generic programming. Please refer to my implementation for more details.
 
 
 
